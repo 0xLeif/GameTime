@@ -17,6 +17,7 @@
 		29559552251D6F1E00988209 /* GameTimeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29559551251D6F1E00988209 /* GameTimeUITests.swift */; };
 		29559563251D72B300988209 /* TwitchAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29559562251D72B300988209 /* TwitchAPI.swift */; };
 		2955956F251D740300988209 /* SUIObject in Frameworks */ = {isa = PBXBuildFile; productRef = 2955956E251D740300988209 /* SUIObject */; };
+		29FE4874251EA6F0008D0E39 /* GameListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FE4873251EA6F0008D0E39 /* GameListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		29559551251D6F1E00988209 /* GameTimeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTimeUITests.swift; sourceTree = "<group>"; };
 		29559553251D6F1E00988209 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		29559562251D72B300988209 /* TwitchAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitchAPI.swift; sourceTree = "<group>"; };
+		29FE4873251EA6F0008D0E39 /* GameListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,8 @@
 		2955952E251D6F1C00988209 /* GameTime */ = {
 			isa = PBXGroup;
 			children = (
+				29FE4873251EA6F0008D0E39 /* GameListView.swift */,
+				29559562251D72B300988209 /* TwitchAPI.swift */,
 				2955952F251D6F1C00988209 /* GameTimeApp.swift */,
 				29559531251D6F1C00988209 /* ContentView.swift */,
 				29559533251D6F1E00988209 /* Assets.xcassets */,
@@ -110,7 +114,6 @@
 				2955953D251D6F1E00988209 /* Info.plist */,
 				2955953A251D6F1E00988209 /* GameTime.xcdatamodeld */,
 				29559535251D6F1E00988209 /* Preview Content */,
-				29559562251D72B300988209 /* TwitchAPI.swift */,
 			);
 			path = GameTime;
 			sourceTree = "<group>";
@@ -277,6 +280,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				29559539251D6F1E00988209 /* Persistence.swift in Sources */,
+				29FE4874251EA6F0008D0E39 /* GameListView.swift in Sources */,
 				29559532251D6F1C00988209 /* ContentView.swift in Sources */,
 				2955953C251D6F1E00988209 /* GameTime.xcdatamodeld in Sources */,
 				29559563251D72B300988209 /* TwitchAPI.swift in Sources */,

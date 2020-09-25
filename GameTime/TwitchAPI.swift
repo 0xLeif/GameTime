@@ -82,32 +82,33 @@ struct TwitchAPI {
         }
     }
     
-    static func games() {
-        let request = apiPostRequest(forRoute: "games", withBody: "fields *; search \"Halo\";")
-        
-        Combino.post(request: request)
-            .sink(.success { (data, response) in
-                let obj = Object(data) {
-                    $0.add(variable: "response", value: response ?? -1)
+    static func post(route: String, withBody body: String) -> Future<Object, Error> {
+        Combino.promise { promise in
+            Combino.post(request: apiPostRequest(forRoute: route, withBody: body))
+                .sink {
+                    [
+                        .success { (data, response) in
+                            promise(.success(Object(data) { $0.add(variable: "response", value: response ?? -1) }))
+                        },
+                        .failure { error in
+                            promise(.failure(error))
+                        }
+                    ]
                 }
-                
-                print(obj.array)
-            })
-            .store(in: &bag)
+                .store(in: &bag)
+        }
     }
     
-    static func cover(forGame game: String) {
-        let request = apiPostRequest(forRoute: "covers", withBody: "fields *; where game = \(game);")
-        
-        Combino.post(request: request)
-            .sink(.success { (data, response) in
-                let obj = Object(data) {
-                    $0.add(variable: "response", value: response ?? -1)
-                }
-                
-                print(obj)
-            })
-            .store(in: &bag)
+    static func searchGames(named name: String) -> Future<Object, Error> {
+        post(route: "games", withBody: "fields *; search \"\(name)\";")
+    }
+    
+    static func games() -> Future<Object, Error> {
+        post(route: "games", withBody: "fields *;")
+    }
+    
+    static func cover(forGame game: String) -> Future<Object, Error> {
+        post(route: "covers", withBody: "fields *; where game = \(game);")
     }
     
     // MARK: Private Functions

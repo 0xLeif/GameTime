@@ -15,48 +15,65 @@ struct ContentView: View {
     @State var bag = Set<AnyCancellable>()
     
     @Environment(\.managedObjectContext) private var viewContext
-
+    
     @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
+        sortDescriptors: [NSSortDescriptor(keyPath: \Game.timestamp, ascending: true)],
         animation: .default)
-    private var items: FetchedResults<Item>
-
+    private var games: FetchedResults<Game>
+    
     var body: some View {
         List {
-            ForEach(items) { item in
-                Text("Item at \(item.timestamp!, formatter: itemFormatter)")
+            ForEach(games) { game in
+                GameListView(game: game)
             }
-            .onDelete(perform: deleteItems)
+            .onDelete(perform: deleteGames)
         }
         .toolbar {
-            HStack {
-                Button(action: addItem) {
-                    Label("Add Item", systemImage: "plus")
-                }
-                #if os(iOS)
-                EditButton()
-                #endif
-            }
+            #if os(iOS)
+            EditButton()
+            #endif
         }
         .onAppear {
-            Combino.do(withDelay: 3)
-                .sink(.success {
-                
-                    if TwitchAPI.isAuthenticated {
+            TwitchAPI.auth()
+                .sink(.success { isAuthenticated in
+                    if isAuthenticated {
                         TwitchAPI.games()
-                        TwitchAPI.cover(forGame: "7348")
+                            .sink {
+                                [
+                                    .success { (object) in
+                                        object.array
+                                            .map({ $0.name })
+                                            .compactMap({ $0.stringValue() })
+                                            .forEach { addGame(gameId: "", withTitle: $0) }
+                                    },
+                                    
+                                    .failure { error in
+                                        print("ERROR: \(error)")
+                                    }
+                                ]
+                            }
+                            .store(in: &bag)
                     }
-                
-            })
+                })
                 .store(in: &bag)
         }
     }
-
-    private func addItem() {
+    
+    private func addGame(gameId: String,
+                         coverId: String? = nil,
+                         withTitle title: String? = nil) {
+        guard !games.contains(where: { $0.title == title }) else {
+            print("Uh oh! We already have an game with a title: \"\(title ?? "")\"")
+            return
+        }
+        
         withAnimation {
-            let newItem = Item(context: viewContext)
-            newItem.timestamp = Date()
-
+            let newGame = Game(context: viewContext)
+            newGame.timestamp = Date()
+            newGame.gameId = gameId
+            newGame.coverId = coverId
+            newGame.title = title
+            
             do {
                 try viewContext.save()
             } catch {
@@ -67,11 +84,11 @@ struct ContentView: View {
             }
         }
     }
-
-    private func deleteItems(offsets: IndexSet) {
+    
+    private func deleteGames(offsets: IndexSet) {
         withAnimation {
-            offsets.map { items[$0] }.forEach(viewContext.delete)
-
+            offsets.map { games[$0] }.forEach(viewContext.delete)
+            
             do {
                 try viewContext.save()
             } catch {
@@ -84,7 +101,7 @@ struct ContentView: View {
     }
 }
 
-private let itemFormatter: DateFormatter = {
+private let gameFormatter: DateFormatter = {
     let formatter = DateFormatter()
     formatter.dateStyle = .short
     formatter.timeStyle = .medium

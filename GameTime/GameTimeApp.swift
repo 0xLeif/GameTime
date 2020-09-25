@@ -17,9 +17,6 @@ struct GameTimeApp: App {
             ContentView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
             }
-            .onAppear {
-                TwitchAPI.auth()
-            }
         }
     }
 }
