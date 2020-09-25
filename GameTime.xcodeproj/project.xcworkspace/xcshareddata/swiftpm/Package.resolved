@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Combino",
+        "repositoryURL": "https://github.com/0xLeif/Combino",
+        "state": {
+          "branch": null,
+          "revision": "e43818cea25b307c537fb8f50205cbdaa762a5ce",
+          "version": "0.1.1"
+        }
+      },
+      {
+        "package": "SUIObject",
+        "repositoryURL": "https://github.com/0xLeif/SUIObject",
+        "state": {
+          "branch": null,
+          "revision": "f7346eb071e197cfe36dc436ddee43db5776e4dd",
+          "version": "0.3.1"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

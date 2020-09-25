@@ -7,8 +7,13 @@
 
 import SwiftUI
 import CoreData
+import SUIObject
+import Combine
+import Combino
 
 struct ContentView: View {
+    @State var bag = Set<AnyCancellable>()
+    
     @Environment(\.managedObjectContext) private var viewContext
 
     @FetchRequest(
@@ -24,13 +29,26 @@ struct ContentView: View {
             .onDelete(perform: deleteItems)
         }
         .toolbar {
-            #if os(iOS)
-            EditButton()
-            #endif
-
-            Button(action: addItem) {
-                Label("Add Item", systemImage: "plus")
+            HStack {
+                Button(action: addItem) {
+                    Label("Add Item", systemImage: "plus")
+                }
+                #if os(iOS)
+                EditButton()
+                #endif
             }
+        }
+        .onAppear {
+            Combino.do(withDelay: 3)
+                .sink(.success {
+                
+                    if TwitchAPI.isAuthenticated {
+                        TwitchAPI.games()
+                        TwitchAPI.cover(forGame: "7348")
+                    }
+                
+            })
+                .store(in: &bag)
         }
     }
 
