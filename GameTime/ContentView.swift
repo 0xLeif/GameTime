@@ -10,6 +10,7 @@ import CoreData
 import SUIObject
 import Combine
 import Combino
+import Neon
 
 struct ContentView: View {
     @State var bag = Set<AnyCancellable>()
@@ -25,43 +26,71 @@ struct ContentView: View {
         List {
             ForEach(games) { game in
                 GameListView(game: game)
+                    .padding([.top, .bottom])
             }
             .onDelete(perform: deleteGames)
         }
         .toolbar {
-            #if os(iOS)
-            EditButton()
-            #endif
+            //            #if os(iOS)
+            //            EditButton()
+            //            #endif
+            HStack {
+                Button("Fetch") {
+                    fetchGames()
+                }
+                Spacer()
+                Button("Clear") {
+                    deleteGames(offsets: IndexSet(games.indices))
+                }
+            }
         }
         .onAppear {
-            TwitchAPI.auth()
-                .sink(.success { isAuthenticated in
-                    if isAuthenticated {
-                        TwitchAPI.games()
-                            .sink {
-                                [
-                                    .success { (object) in
-                                        object.array
-                                            .map({ $0.name })
-                                            .compactMap({ $0.stringValue() })
-                                            .forEach { addGame(gameId: "", withTitle: $0) }
-                                    },
-                                    
-                                    .failure { error in
-                                        print("ERROR: \(error)")
-                                    }
-                                ]
-                            }
-                            .store(in: &bag)
+            if TwitchAPI.isAuthenticated {
+                fetchGames()
+            } else {
+                Combino.do(withDelay: 5) {
+                    if TwitchAPI.isAuthenticated {
+                        fetchGames()
                     }
-                })
-                .store(in: &bag)
+                }
+                .sink { [] }.store(in: &bag)
+            }
+            
         }
+    }
+    
+    private func fetchGames() {
+        TwitchAPI.games()
+            .map { value in
+                value.array.map { value in
+                    Object {
+                        $0.add(variable: "name", value: value.name)
+                        $0.add(variable: "gameId", value: value.id)
+                        $0.add(variable: "coverId", value: value.cover)
+                    }
+                }
+            }
+            .sink(receiveCompletion: {
+                print($0)
+            }) { (values) in
+                print(values)
+                values.forEach { value in
+                    guard let id: Int = value.gameId.value() else {
+                        return
+                    }
+                    addGame(gameId: id.description,
+                            coverId: value.coverId.value(as: Int.self)?.description,
+                            withTitle: value.name.value(),
+                            andCoverImageURL: value.coverImageURL.value())
+                }
+            }
+            .store(in: &bag)
     }
     
     private func addGame(gameId: String,
                          coverId: String? = nil,
-                         withTitle title: String? = nil) {
+                         withTitle title: String? = nil,
+                         andCoverImageURL coverImageURL: String? = nil) {
         guard !games.contains(where: { $0.title == title }) else {
             print("Uh oh! We already have an game with a title: \"\(title ?? "")\"")
             return
@@ -73,6 +102,7 @@ struct ContentView: View {
             newGame.gameId = gameId
             newGame.coverId = coverId
             newGame.title = title
+            newGame.coverImageURL = coverImageURL
             
             do {
                 try viewContext.save()

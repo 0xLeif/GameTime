@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		291C3E692526B21D002B329A /* AsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291C3E682526B21D002B329A /* AsyncImage.swift */; };
 		29559530251D6F1C00988209 /* GameTimeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2955952F251D6F1C00988209 /* GameTimeApp.swift */; };
 		29559532251D6F1C00988209 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29559531251D6F1C00988209 /* ContentView.swift */; };
 		29559534251D6F1E00988209 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29559533251D6F1E00988209 /* Assets.xcassets */; };
@@ -18,6 +19,7 @@
 		29559563251D72B300988209 /* TwitchAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29559562251D72B300988209 /* TwitchAPI.swift */; };
 		2955956F251D740300988209 /* SUIObject in Frameworks */ = {isa = PBXBuildFile; productRef = 2955956E251D740300988209 /* SUIObject */; };
 		29FE4874251EA6F0008D0E39 /* GameListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FE4873251EA6F0008D0E39 /* GameListView.swift */; };
+		29FE48C6251F8164008D0E39 /* Neon in Frameworks */ = {isa = PBXBuildFile; productRef = 29FE48C5251F8164008D0E39 /* Neon */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		291C3E682526B21D002B329A /* AsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImage.swift; sourceTree = "<group>"; };
 		2955952C251D6F1C00988209 /* GameTime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GameTime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2955952F251D6F1C00988209 /* GameTimeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTimeApp.swift; sourceTree = "<group>"; };
 		29559531251D6F1C00988209 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -61,6 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				29FE48C6251F8164008D0E39 /* Neon in Frameworks */,
 				2955956F251D740300988209 /* SUIObject in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -82,6 +86,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		291492F8252FD4450095B88D /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				291C3E682526B21D002B329A /* AsyncImage.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		291C3E662526B1C0002B329A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				291492F8252FD4450095B88D /* Helper */,
+				29FE4873251EA6F0008D0E39 /* GameListView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		291C3E672526B1E9002B329A /* API */ = {
+			isa = PBXGroup;
+			children = (
+				29559562251D72B300988209 /* TwitchAPI.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
 		29559523251D6F1C00988209 = {
 			isa = PBXGroup;
 			children = (
@@ -105,10 +134,10 @@
 		2955952E251D6F1C00988209 /* GameTime */ = {
 			isa = PBXGroup;
 			children = (
-				29FE4873251EA6F0008D0E39 /* GameListView.swift */,
-				29559562251D72B300988209 /* TwitchAPI.swift */,
-				2955952F251D6F1C00988209 /* GameTimeApp.swift */,
+				291C3E672526B1E9002B329A /* API */,
+				291C3E662526B1C0002B329A /* Views */,
 				29559531251D6F1C00988209 /* ContentView.swift */,
+				2955952F251D6F1C00988209 /* GameTimeApp.swift */,
 				29559533251D6F1E00988209 /* Assets.xcassets */,
 				29559538251D6F1E00988209 /* Persistence.swift */,
 				2955953D251D6F1E00988209 /* Info.plist */,
@@ -162,6 +191,7 @@
 			name = GameTime;
 			packageProductDependencies = (
 				2955956E251D740300988209 /* SUIObject */,
+				29FE48C5251F8164008D0E39 /* Neon */,
 			);
 			productName = GameTime;
 			productReference = 2955952C251D6F1C00988209 /* GameTime.app */;
@@ -236,6 +266,7 @@
 			mainGroup = 29559523251D6F1C00988209;
 			packageReferences = (
 				2955956D251D740300988209 /* XCRemoteSwiftPackageReference "SUIObject" */,
+				29FE48C4251F8164008D0E39 /* XCRemoteSwiftPackageReference "Neon" */,
 			);
 			productRefGroup = 2955952D251D6F1C00988209 /* Products */;
 			projectDirPath = "";
@@ -279,6 +310,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				291C3E692526B21D002B329A /* AsyncImage.swift in Sources */,
 				29559539251D6F1E00988209 /* Persistence.swift in Sources */,
 				29FE4874251EA6F0008D0E39 /* GameListView.swift in Sources */,
 				29559532251D6F1C00988209 /* ContentView.swift in Sources */,
@@ -614,6 +646,14 @@
 				minimumVersion = 0.3.1;
 			};
 		};
+		29FE48C4251F8164008D0E39 /* XCRemoteSwiftPackageReference "Neon" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/0xLeif/Neon";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -621,6 +661,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2955956D251D740300988209 /* XCRemoteSwiftPackageReference "SUIObject" */;
 			productName = SUIObject;
+		};
+		29FE48C5251F8164008D0E39 /* Neon */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 29FE48C4251F8164008D0E39 /* XCRemoteSwiftPackageReference "Neon" */;
+			productName = Neon;
 		};
 /* End XCSwiftPackageProductDependency section */
 

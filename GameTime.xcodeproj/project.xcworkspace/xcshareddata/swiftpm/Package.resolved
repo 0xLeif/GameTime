@@ -11,6 +11,15 @@
         }
       },
       {
+        "package": "Neon",
+        "repositoryURL": "https://github.com/0xLeif/Neon",
+        "state": {
+          "branch": "main",
+          "revision": "3d7b83d0722d81ea79a639b2697a19cabc4b8866",
+          "version": null
+        }
+      },
+      {
         "package": "SUIObject",
         "repositoryURL": "https://github.com/0xLeif/SUIObject",
         "state": {
