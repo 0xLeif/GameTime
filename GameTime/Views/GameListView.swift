@@ -11,54 +11,6 @@ import Combino
 import Combine
 import Neon
 
-let neonColor = Color.pink
-let unitPoints: [UnitPoint] = [
-    .topLeading, .top, .topTrailing,
-    .leading, .center, .trailing,
-    .bottomLeading, .bottom, .bottomTrailing
-]
-
-class CoverImageLoader: ObservableObject {
-    @State private var task: AnyCancellable?
-    @Published var coverImageURL: URL?
-    
-    init() { }
-    
-    deinit {
-        task?.cancel()
-    }
-    
-    func load(coverId: String?) {
-        guard let id = coverId else {
-            print("Cover ID: nil")
-            return
-        }
-        
-        guard coverImageURL == nil else {
-            print("coverImageURL != nil")
-            return
-        }
-        
-        print("Cover ID: \(id)")
-        
-        /// ACK: https://stackoverflow.com/questions/62264708/execute-combine-future-in-background-thread-is-not-working
-        /// To sink correctlly we must subscribe on the `DispatchQueue.global()`
-        /// `.subscribe(on: DispatchQueue.global())`
-        task = TwitchAPI.cover(forId: id)
-            .subscribe(on: DispatchQueue.global())
-            .sink(receiveCompletion: { _ in }) { object in
-                guard let urlString = object.array.first?.url.stringValue()?.dropFirst(2).description,
-                      let url = URL(string: "https://\(urlString)") else {
-                    return
-                }
-                DispatchQueue.main.async {
-                    self.coverImageURL = url
-                }
-            }
-        
-    }
-}
-
 struct GameListView: View {
     @StateObject private var coverImageLoader = CoverImageLoader()
     @State var authFailureRetryTask: AnyCancellable?
@@ -160,12 +112,14 @@ struct GameListView: View {
         }
         
         guard TwitchAPI.isAuthenticated else {
-            authFailureRetryTask = Combino.do(withDelay: 5) {
-                if TwitchAPI.isAuthenticated {
-                    coverImageLoader.load(coverId: game.coverId)
-                }
-            }
-            .sink { [] }
+            authFailureRetryTask = Combino.do(withDelay: 5)
+                .sink(
+                    .success {
+                        if TwitchAPI.isAuthenticated {
+                            coverImageLoader.load(coverId: game.coverId)
+                        }
+                    }
+                )
             return
         }
         

@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		290C22802536663F00FA4DDD /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290C227F2536663F00FA4DDD /* SearchBar.swift */; };
+		291492FE2530F0FC0095B88D /* CoverImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291492FD2530F0FC0095B88D /* CoverImageLoader.swift */; };
+		2914930C25350DD90095B88D /* TimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2914930B25350DD90095B88D /* TimelineView.swift */; };
+		2914931125350DE60095B88D /* MyGamesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2914931025350DE60095B88D /* MyGamesView.swift */; };
+		2914931625350DF10095B88D /* SearchGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2914931525350DF10095B88D /* SearchGameView.swift */; };
 		291C3E692526B21D002B329A /* AsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291C3E682526B21D002B329A /* AsyncImage.swift */; };
 		29559530251D6F1C00988209 /* GameTimeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2955952F251D6F1C00988209 /* GameTimeApp.swift */; };
 		29559532251D6F1C00988209 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29559531251D6F1C00988209 /* ContentView.swift */; };
@@ -40,6 +45,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		290C227F2536663F00FA4DDD /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		291492FD2530F0FC0095B88D /* CoverImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverImageLoader.swift; sourceTree = "<group>"; };
+		2914930B25350DD90095B88D /* TimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineView.swift; sourceTree = "<group>"; };
+		2914931025350DE60095B88D /* MyGamesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyGamesView.swift; sourceTree = "<group>"; };
+		2914931525350DF10095B88D /* SearchGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchGameView.swift; sourceTree = "<group>"; };
 		291C3E682526B21D002B329A /* AsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImage.swift; sourceTree = "<group>"; };
 		2955952C251D6F1C00988209 /* GameTime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GameTime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2955952F251D6F1C00988209 /* GameTimeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTimeApp.swift; sourceTree = "<group>"; };
@@ -90,13 +100,33 @@
 			isa = PBXGroup;
 			children = (
 				291C3E682526B21D002B329A /* AsyncImage.swift */,
+				290C227F2536663F00FA4DDD /* SearchBar.swift */,
 			);
 			path = Helper;
+			sourceTree = "<group>";
+		};
+		291492FC2530F0E40095B88D /* ObservableObjects */ = {
+			isa = PBXGroup;
+			children = (
+				291492FD2530F0FC0095B88D /* CoverImageLoader.swift */,
+			);
+			path = ObservableObjects;
+			sourceTree = "<group>";
+		};
+		2914931A25350E0F0095B88D /* TabViews */ = {
+			isa = PBXGroup;
+			children = (
+				2914930B25350DD90095B88D /* TimelineView.swift */,
+				2914931025350DE60095B88D /* MyGamesView.swift */,
+				2914931525350DF10095B88D /* SearchGameView.swift */,
+			);
+			path = TabViews;
 			sourceTree = "<group>";
 		};
 		291C3E662526B1C0002B329A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2914931A25350E0F0095B88D /* TabViews */,
 				291492F8252FD4450095B88D /* Helper */,
 				29FE4873251EA6F0008D0E39 /* GameListView.swift */,
 			);
@@ -134,6 +164,7 @@
 		2955952E251D6F1C00988209 /* GameTime */ = {
 			isa = PBXGroup;
 			children = (
+				291492FC2530F0E40095B88D /* ObservableObjects */,
 				291C3E672526B1E9002B329A /* API */,
 				291C3E662526B1C0002B329A /* Views */,
 				29559531251D6F1C00988209 /* ContentView.swift */,
@@ -310,12 +341,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2914931125350DE60095B88D /* MyGamesView.swift in Sources */,
 				291C3E692526B21D002B329A /* AsyncImage.swift in Sources */,
 				29559539251D6F1E00988209 /* Persistence.swift in Sources */,
+				291492FE2530F0FC0095B88D /* CoverImageLoader.swift in Sources */,
+				2914931625350DF10095B88D /* SearchGameView.swift in Sources */,
+				290C22802536663F00FA4DDD /* SearchBar.swift in Sources */,
 				29FE4874251EA6F0008D0E39 /* GameListView.swift in Sources */,
 				29559532251D6F1C00988209 /* ContentView.swift in Sources */,
 				2955953C251D6F1E00988209 /* GameTime.xcdatamodeld in Sources */,
 				29559563251D72B300988209 /* TwitchAPI.swift in Sources */,
+				2914930C25350DD90095B88D /* TimelineView.swift in Sources */,
 				29559530251D6F1C00988209 /* GameTimeApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
